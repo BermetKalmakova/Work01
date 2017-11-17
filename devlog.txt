@@ -1,2 +1,5 @@
 kalmakovaB -- 2017-11-15 13:42
    -Devlog created
+
+kalmakovaB -- 2017-11-16 22:19
+   -Design Doc uploaded
