@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
+  {% block title %}
+  {% endblock %}
+    <link rel="stylesheet" href="foundation.css">
   </head>
   <body>
+  {% block body %}
+  {% endblock %}
+  	<script src="../foundation-6.4.2-complete/js/vendor/jquery.js"></script>
+  	<script src="foundation.js"></script>
+  	<script src="foundation.min.js"></script>
+  	<script src="../foundation-6.4.2-complete/js/vendor/what-input.js"></script>
+  	<script>$(document).foundation();</script>
   </body>
 </html>
