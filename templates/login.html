@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>login</title>
+{% endblock %}
+
+{% block body %}
+<form method="POST" action="/authorize">
+	Username:
+  	<br>
+  	<input type="text" name="username">
+  	<br>
+  	Password:
+  	<br>
+  	<input type="password" name="password">
+  	<br>
+  	<input type="submit" value="Login" name="submit">
+</form>
+<br>
+<br>
+<br>
+<form method="POST" action="/register">
+	<input type="submit" value="Register here!" name="submit">
+</form>
+{% endblock %}
