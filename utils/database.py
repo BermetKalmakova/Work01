@@ -1,0 +1,113 @@
+import sqlite3   #enable control of an sqlite database
+
+def openDatabase():
+    f="data/dummy.db"
+    db = sqlite3.connect(f) #open if f exists, otherwise create
+    return db, db.cursor()    #facilitate db ops
+
+def closeDatabase(db):
+    db.commit() #save changes
+    db.close()  #close database
+
+# LOGIN FUNCTIONS!!!
+
+def checkUsernames(username):
+    #checks if username is taken
+    #called when user registers onto our site
+    #returns True if username is taken, returns False if username is not taken
+    db, c = openDatabase()
+    cm = "SELECT user FROM userInfo;"
+    for i in c.execute(cm):
+        if username == i[0].encode("ascii"):
+            closeDatabase(db)
+            return True
+    closeDatabase(db)
+    return False
+
+def updateUsers(username, password): 
+    #adds a new record in the userInfo table with the username, password, and a userID (found in function)
+    #called when user registers onto our site
+    db, c = openDatabase()
+    cm = "SELECT COUNT(*) FROM userInfo;"
+    for i in c.execute(cm):
+        userID = i[0]
+    cm = 'INSERT INTO userInfo VALUES("%s", "%s", %d);' %(username, password, userID)
+    c.execute(cm)
+    closeDatabase(db)
+
+def authorize(username, password):
+    #checks whether a person's password matches their username
+    #called by authorize() in app.py
+    db, c = openDatabase()
+    cm = 'SELECT password FROM userInfo WHERE user = "%s";' %username
+    x = c.execute(cm)
+    for i in x:
+        true_pass = i
+    closeDatabase(db)
+    return password == true_pass[0].encode("ascii")
+
+# END LOGIN FUNCTIONS
+
+
+
+# START ALL OUR GET FUNCTIONS
+
+def getUserID(username):
+    db, c = openDatabase()
+    cm = 'SELECT id FROM userInfo WHERE user = "%s";' %username
+    for i in c.execute(cm):
+        x = i[0]
+    closeDatabase(db)
+    return x
+
+def getStoryID(title):
+    db, c = openDatabase()
+    cm = 'SELECT storyId FROM log WHERE title = "%s";' %title
+    for i in c.execute(cm):
+        x = i[0]
+    closeDatabase(db)
+    return x
+
+def getStory(title):
+    db, c = openDatabase()
+    cm = 'SELECT body FROM log WHERE title = "%s";' %title
+    for i in c.execute(cm):
+        x = i[0].encode("ascii")
+    closeDatabase(db)
+    return x
+
+def getEdited(userid):
+    db, c = openDatabase()
+    cm = 'SELECT edited.storyId, title FROM edited, log WHERE edited.id = %d AND edited.storyId = log.storyId;' %userid
+    x = c.execute(cm)
+    final = []
+    for i in x:
+        final.append(i[1].encode("ascii"))
+    closeDatabase(db)
+    '''newFinal = []
+    for title in final:
+        newFinal.append(title.replace(" ", "+"))'''
+    return final
+
+def getNotEdited(userid):
+    db, c = openDatabase()
+    x = getEdited(userid)
+    cm = 'SELECT title FROM log;'
+    final = []
+    for i in c.execute(cm):
+        if i[0].encode("ascii") not in x:
+            final.append(i[0].encode("ascii"))
+    closeDatabase(db)
+    '''newFinal = []
+    for title in final:
+        newFinal.append(title.replace(" ", "+"))'''
+    return final
+
+def getLastLine(title):
+    db, c = openDatabase()
+    cm = 'SELECT lastLine FROM log WHERE title = "%s"' %title
+    for i in c.execute(cm):
+        x = i[0].encode('ascii')
+    return x
+
+# END ALL OUR GET FUNCTIONS
