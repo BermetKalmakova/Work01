@@ -1,17 +1,17 @@
 import requests, json
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, flash
 from os import urandom
 from utils import database
 
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-# LOGIN STUFF
+# LOGIN/LOGOUT STUFF
 
 #helper method
 #return true if a user is logged in
 def checkSession():
-    return "userID" in session
+    return "username" in session
 
 @app.route("/", methods=["GET", "POST"])
 def root():
@@ -58,14 +58,21 @@ def authorize():
     postedPassword = request.form["password"]
     if database.checkUsernames(postedUsername):
         if database.authorize(postedUsername, postedPassword):
-            session["userID"] = database.getUserID(postedUsername)
             session["username"] = postedUsername
             return redirect(url_for("welcome"))
     #if the submitted login information is not correct, redirect to Welcome, flash a message
     flash("Incorrect username-password combination.")
     return redirect(url_for("root"))
 
-# END LOGIN STUFF
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+	#logs out user by popping username from session
+	x = session["username"]
+	session.pop("username")
+	flash(x + " is now logged out.")
+	return redirect(url_for("root"))
+
+# END LOGIN/LOGOUT STUFF
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
