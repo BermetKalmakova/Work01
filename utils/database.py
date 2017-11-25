@@ -52,6 +52,22 @@ def authorize(username, password):
 
 # START ALL OUR GET FUNCTIONS
 
+def getScore(username):
+    db, c = openDatabase()
+    cm = 'SELECT score FROM peeps WHERE username = "%s";' %username
+    x = c.execute(cm)
+    for i in x:
+        score = i
+    closeDatabase(db)
+    return score
 
+def getPlacement(username):
+    db, c = openDatabase()
+    cm = 'SELECT placement FROM peeps WHERE username = "%s";' %username
+    x = c.execute(cm)
+    for i in x:
+        place = i
+    closeDatabase(db)
+    return place
 
 # END ALL OUR GET FUNCTIONS
