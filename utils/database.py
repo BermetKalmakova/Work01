@@ -70,6 +70,16 @@ def getPlacement(username):
     closeDatabase(db)
     return place
 
+def getEverything():
+    db, c = openDatabase()
+    cm = 'SELECT username, score, placement FROM peeps;'
+    final = []
+    x = c.execute(cm)
+    for i in x:
+        final.append(i)
+    closeDatabase(db)
+    return final
+
 # END ALL OUR GET FUNCTIONS
 
 

@@ -76,7 +76,19 @@ def logout():
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    return render_template("welcome.html")
+    return render_template("welcome.html", name=session["username"], score=database.getScore(session["username"])[0], place=getStringEnding(database.getPlacement(session["username"])))
+
+def getStringEnding(place):
+	place = place[0]
+	end = place % 10
+	if end == 1:
+		return str(place) + "st"
+	elif end == 2:
+		return str(place) + "nd"
+	elif end == 3:
+		return str(place) + "rd"
+	else:
+		return str(place) + "th"
 
 @app.route("/makegame", methods=["GET", "POST"])
 def makegame():
@@ -87,6 +99,26 @@ def makegame():
     contents = u.read()
     d = json.loads(contents)
     return render_template("question.html")
+
+''' WE NEED TO MAKE A QUESTION ROUTE ONCE API STUFF IS UP AND RUNNING!!! '''
+
+@app.route("/leaderboard", methods=["GET", "POST"])
+def leaderboard():
+	listOfPeeps = database.getEverything()
+	final = []
+	boolean = True
+	booli = False
+	counter = 1
+	while boolean:
+		for i in listOfPeeps:
+			if i[2] == counter:
+				final.append(i)
+				booli = True
+		if not booli:
+			boolean = False
+		booli = False
+		counter += 1
+	return render_template("leaderboard.html", listy=final)
 
 if __name__ == "__main__":
     app.debug = True

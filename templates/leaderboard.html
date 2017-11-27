@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>leaderboard</title>
+{% endblock %}
+
+{% block body %}
+<h3>Leaderboard:</h3>
+<table>
+  <tr>
+    <th>Placement</th>
+    <th>Username</th>
+    <th>Score</th>
+  </tr>
+{% for i in listy %}
+  <tr>
+    <th>{{i[2]}}</th>
+    <th>{{i[0]}}</th>
+    <th>{{i[1]}}</th>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

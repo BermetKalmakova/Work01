@@ -26,3 +26,7 @@ kalmakovaB -- 2017-11-26 22:54
    -Worked on form to create game
    -Making of trivia api url
    -Next Step: Accessing the info with the url and displaying the questions
+
+chenT -- 2017-11-27 14:01
+   -Edited welcome so that username, score, and placement is flashed at the top. (Should probably be changed to something that stays permanently on the top of the page.)
+   -Finished leaderboard

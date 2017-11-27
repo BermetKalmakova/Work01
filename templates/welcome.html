@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block body %}
-<h3>More work needed</h3>
-<br>
+<h3>Welcome {{name}}!</h3>
+<h3>You currently have {{score}} points and are in {{place}} place.</h3>
+<br><br>
 <form method="POST" action="/makegame">
   Choose a category:<br>
   <input type="radio" name="cat" value="9" checked>General Knowledge<br>
@@ -21,9 +22,11 @@
   <input type="submit" value="Start" name="submit">
 </form>
 <br><br>
+<form method="POST" action="/leaderboard">
+	<input type="submit" value="Check the leaderboard!" name="submit">
+</form>
+<br><br>
 <form method="POST" action="/logout">
 	<input type="submit" value="Logout" name="submit">
 </form>
-
-
 {% endblock %}
