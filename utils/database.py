@@ -71,3 +71,19 @@ def getPlacement(username):
     return place
 
 # END ALL OUR GET FUNCTIONS
+
+
+
+# START ALL OUR SET FUNCTIONS
+
+def setScore(user, score):
+    db, c = openDatabase()
+    cm = 
+    closeDatabase(db)
+
+def changePlacements():
+    db, c = openDatabase()
+    cm = 
+    closeDatabase(db)
+
+# END ALL OUR SET FUNCTIONS
