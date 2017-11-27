@@ -78,12 +78,25 @@ def getPlacement(username):
 
 def setScore(user, score):
     db, c = openDatabase()
-    cm = 
+    cm = 'UPDATE peeps SET score = %d WHERE username = "%s";' %(score, user)
+    c.execute(cm)
     closeDatabase(db)
 
 def changePlacements():
     db, c = openDatabase()
-    cm = 
+    cm = 'SELECT score FROM peeps;'
+    x = c.execute(cm)
+    scores = []
+    for i in x:
+        scores.append(i)
+    scores.sort()
+    place = 1
+    cm = "SELECT COUNT(*) FROM peeps;"
+    for i in c.execute(cm):
+        total = i[0]
+    while place <= total:
+        cm = 'UPDATE peeps SET placement = %d WHERE score = %d' %(place, score)
+        place += 1
     closeDatabase(db)
 
 # END ALL OUR SET FUNCTIONS
