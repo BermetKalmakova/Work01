@@ -1,4 +1,4 @@
-import requests, json
+import urllib2, json
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from os import urandom
 from utils import database
@@ -76,7 +76,17 @@ def logout():
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-	return render_template("welcome.html")
+    return render_template("welcome.html")
+
+@app.route("/makegame", methods=["GET", "POST"])
+def makegame():
+    cat=request.form["cat"]
+    diff=request.form["diff"]
+    url = "https://opentdb.com/api.php?amount=10&category=" + cat + "&difficulty=" + diff + "&type=multiple"
+    u = urllib2.urlopen(url)
+    contents = u.read()
+    d = json.loads(contents)
+    return render_template("question.html")
 
 if __name__ == "__main__":
     app.debug = True
