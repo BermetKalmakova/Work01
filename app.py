@@ -91,7 +91,6 @@ def getStringEnding(place):
 	else:
 		return str(place) + "th"
 
-
 n=0
 c_a = ''
 @app.route("/makegame", methods=["GET", "POST"])
@@ -131,8 +130,7 @@ def makegame():
             return redirect('/')
         return render_template("question.html", question = q, a = a,b=b,c=c,d=d)
 
-    ''' WE NEED TO MAKE A QUESTION ROUTE ONCE API STUFF IS UP AND RUNNING!!! '''
-
+''' WE NEED TO MAKE A QUESTION ROUTE ONCE API STUFF IS UP AND RUNNING!!! '''
 
 @app.route("/answered", methods=["GET","POST"])
 def answered():
@@ -142,9 +140,6 @@ def answered():
         
     #flash(m)
     return redirect(url_for("makegame"))
-    
-            
-    
 
 @app.route("/leaderboard", methods=["GET", "POST"])
 def leaderboard():
