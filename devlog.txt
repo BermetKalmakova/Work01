@@ -33,3 +33,7 @@ chenT -- 2017-11-27 14:01
 
 chenT -- 2017-11-27 19:25
    -Changed radio inputs to dropdown on welcome page
+   
+kalmakovaB -- 2017-11-28 2:34
+   -Use api to display question and answers
+   -Error when moving on to next question
