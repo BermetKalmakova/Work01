@@ -77,14 +77,26 @@ def logout():
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    return render_template("welcome.html")
+    return render_template("welcome.html", name=session["username"], score=database.getScore(session["username"])[0], place=getStringEnding(database.getPlacement(session["username"])))
+
+def getStringEnding(place):
+	place = place[0]
+	end = place % 10
+	if end == 1:
+		return str(place) + "st"
+	elif end == 2:
+		return str(place) + "nd"
+	elif end == 3:
+		return str(place) + "rd"
+	else:
+		return str(place) + "th"
 
 n = 0
 
 @app.route("/makegame", methods=["GET", "POST"])
 def makegame():
-    cat=request.form["cat"]
-    diff=request.form["diff"]
+    cat = request.form["cat"]
+    diff = request.form["diff"]
     url = "https://opentdb.com/api.php?amount=10&category=" + cat + "&difficulty=" + diff + "&type=multiple"
     u = urllib2.urlopen(url)
     contents = u.read()
@@ -101,17 +113,36 @@ def makegame():
         flash("Correct answer!")
     #if request.form['answer'] != c_a:
         #flash(wikimedia stuff)
-    while (n<10):
+    while (n < 10):
         q = d[n]['question']
         c_a = d[n]['correct_answer']
         i_a = d[n]['incorrect_answers']
         all_a = shuffle(i_a.append(c_a))
-    n+=1
-    if (n>10):
+    n += 1
+    if (n > 10):
         n = 0
         return redirect('/')
-
     return render_template("question.html", question = q, answers = all_a)
+
+''' WE NEED TO MAKE A QUESTION ROUTE ONCE API STUFF IS UP AND RUNNING!!! '''
+
+@app.route("/leaderboard", methods=["GET", "POST"])
+def leaderboard():
+	listOfPeeps = database.getEverything()
+	final = []
+	boolean = True
+	booli = False
+	counter = 1
+	while boolean:
+		for i in listOfPeeps:
+			if i[2] == counter:
+				final.append(i)
+				booli = True
+		if not booli:
+			boolean = False
+		booli = False
+		counter += 1
+	return render_template("leaderboard.html", listy=final)
 
 if __name__ == "__main__":
     app.debug = True
