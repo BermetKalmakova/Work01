@@ -91,40 +91,60 @@ def getStringEnding(place):
 	else:
 		return str(place) + "th"
 
-n = 0
 
+n=0
+c_a = ''
 @app.route("/makegame", methods=["GET", "POST"])
 def makegame():
+    n=0
     cat = request.form["cat"]
     diff = request.form["diff"]
     url = "https://opentdb.com/api.php?amount=10&category=" + cat + "&difficulty=" + diff + "&type=multiple"
     u = urllib2.urlopen(url)
     contents = u.read()
     d = json.loads(contents)['results'] #questions and answers
+    print d
     q = ''
-    c_a = ''
-    i_a = []
+    i_a = ['']
     all_a = []
-    try:
-        request.form['answer']
-    except:
-        pass
-    if request.form['answer'] == c_a:
-        flash("Correct answer!")
+    #try:
+    #    request.form['answer']
+    #except:
+    #    pass
+    #if request.form['answer'] == c_a:
+    #    flash("Correct answer!")
     #if request.form['answer'] != c_a:
         #flash(wikimedia stuff)
     while (n < 10):
         q = d[n]['question']
         c_a = d[n]['correct_answer']
         i_a = d[n]['incorrect_answers']
-        all_a = shuffle(i_a.append(c_a))
-    n += 1
-    if (n > 10):
-        n = 0
-        return redirect('/')
-    return render_template("question.html", question = q, answers = all_a)
+        i_a.append(c_a)
+        shuffle(i_a)
+        a = i_a[0]
+        b = i_a[1]
+        c = i_a[2]
+        d = i_a[3]
+        n += 1
+        if (n > 10):
+            n = 0
+            return redirect('/')
+        return render_template("question.html", question = q, a = a,b=b,c=c,d=d)
 
-''' WE NEED TO MAKE A QUESTION ROUTE ONCE API STUFF IS UP AND RUNNING!!! '''
+    ''' WE NEED TO MAKE A QUESTION ROUTE ONCE API STUFF IS UP AND RUNNING!!! '''
+
+
+@app.route("/answered", methods=["GET","POST"])
+def answered():
+    #m = "Incorrect answer!"
+    #if request.form['answer'] == c_a:
+    #    m = "Correct answer!"              
+        
+    #flash(m)
+    return redirect(url_for("makegame"))
+    
+            
+    
 
 @app.route("/leaderboard", methods=["GET", "POST"])
 def leaderboard():

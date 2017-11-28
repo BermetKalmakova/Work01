@@ -5,7 +5,17 @@
 {% endblock %}
 
 {% block body %}
-<h3>More work needed</h3>
+<h3>More work needed</h3><br><br>
+<form method="POST" action="/answered">
+  <center>{{question}}</center>
+  <input type="radio" name="answer" value="a">{{a}}<br>
+  <input type="radio" name="answer" value="b">{{b}}<br>
+  <input type="radio" name="answer" value="c">{{c}}<br>
+  <input type="radio" name="answer" value="d">{{d}}<br>
+  <input type="submit" value="Submit" name="ans">
+</form>
+
+
 <br>
 <form method="POST" action="/logout">
   <input type="submit" value="Logout" name="submit">
