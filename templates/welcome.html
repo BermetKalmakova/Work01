@@ -10,15 +10,32 @@
 <br><br>
 <form method="POST" action="/makegame">
   Choose a category:<br>
-  <input type="radio" name="cat" value="9" checked>General Knowledge<br>
-  <input type="radio" name="cat" value="11">Film<br>
-  <input type="radio" name="cat" value="26">Celebrities<br>
-  <input type="radio" name="cat" value="23">History<br><br>
+  	<select name="cat">
+      <option value="9" selected>General Knowledge</option>
+  	  <option value="10">Books</option>
+  	  <option value="11">Film</option>
+  	  <option value="12">Music</option>
+  	  <option value="13">Musicals and Theatres</option>
+  	  <option value="14">Television</option>
+  	  <option value="15">Video Games</option>
+  	  <option value="16">Board Games</option>
+  	  <option value="17">Science and Nature</option>
+  	  <option value="18">Computers</option>
+  	  <option value="19">Math</option>
+  	  <option value="20">Mythology</option>
+  	  <option value="21">Sports</option>
+  	  <option value="22">Geography</option>
+  	  <option value="23">History</option>
+  	  <option value="24">Politics</option>
+  	  <option value="25">Art</option>
+  	  <option value="26">Celebrities</option>
+  	  <option value="27">Animals</option>
+  	</select>
+  <br><br>
   Choose a difficulty:<br>
   <input type="radio" name="diff" value="easy" checked>Easy<br>
   <input type="radio" name="diff" value="medium">Medium<br>
   <input type="radio" name="diff" value="hard">Hard<br><br>
-  
   <input type="submit" value="Start" name="submit">
 </form>
 <br><br>

@@ -31,10 +31,10 @@ def register():
 
 @app.route("/createAccount", methods=["GET", "POST"])
 def createAccount():
-    #if user is already logged in, redirect to Welcome
+    #if user is already logged in, redirect to welcome
     if checkSession():
         return redirect(url_for("welcome"))
-    #if username exits, flash message and redirect to Register
+    #if username exits, flash message and redirect to register
     postedUsername = request.form["username"]
     postedPassword = request.form["password"]
     if database.checkUsernames(postedUsername):
@@ -43,14 +43,14 @@ def createAccount():
     if postedPassword == "":
     	flash("Password not entered.")
     	return redirect(url_for("register"))
-    #othwerwise, create the account and redirect to Root
+    #othwerwise, create the account and redirect to root
     database.updateUsers(postedUsername, postedPassword)
     flash("Account succesfully created. Please login again.")
     return redirect(url_for("root"))
             
 @app.route("/authorize", methods=["GET", "POST"])
 def authorize():
-    #if user is already logged in, redirect to Welcome
+    #if user is already logged in, redirect to welcome
     if checkSession():
         return redirect(url_for("welcome"))
     #check if the submitted login information is correct, and then store a session with the userId
@@ -60,7 +60,7 @@ def authorize():
         if database.authorize(postedUsername, postedPassword):
             session["username"] = postedUsername
             return redirect(url_for("welcome"))
-    #if the submitted login information is not correct, redirect to Welcome, flash a message
+    #if the submitted login information is not correct, redirect to welcome, flash a message
     flash("Incorrect username-password combination.")
     return redirect(url_for("root"))
 
