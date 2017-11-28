@@ -37,3 +37,7 @@ chenT -- 2017-11-27 19:25
 kalmakovaB -- 2017-11-28 2:34
    -Use api to display question and answers
    -Error when moving on to next question
+
+chenT & kalmakovaB -- 2017-11-28 15:01
+   -Fixed bugs in question route
+   -Added point system

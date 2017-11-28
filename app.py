@@ -91,22 +91,28 @@ def getStringEnding(place):
 	else:
 		return str(place) + "th"
 
-n=0
-c_a = ''
 diff = ''
+
 @app.route("/makegame", methods=["GET", "POST"])
 def makegame():
-    n=0
     cat = request.form["cat"]
     diff = request.form["diff"]
     url = "https://opentdb.com/api.php?amount=10&category=" + cat + "&difficulty=" + diff + "&type=multiple"
     u = urllib2.urlopen(url)
     contents = u.read()
     d = json.loads(contents)['results'] #questions and answers
-    print d
+    session["d"] = d
+    session["number"] = 0
+    session["diff"] = diff
+    return redirect(url_for("question"))
+
+@app.route("/question", methods=["GET","POST"])
+def question():
     q = ''
     i_a = ['']
     all_a = []
+    n = session["number"]
+    d = session["d"]
     #try:
     #    request.form['answer']
     #except:
@@ -118,6 +124,8 @@ def makegame():
     while (n < 10):
         q = d[n]['question']
         c_a = d[n]['correct_answer']
+        session["correct"] = c_a
+        print c_a
         i_a = d[n]['incorrect_answers']
         i_a.append(c_a)
         shuffle(i_a)
@@ -125,22 +133,25 @@ def makegame():
         b = i_a[1]
         c = i_a[2]
         d = i_a[3]
-        n += 1
-        if (n > 10):
-            n = 0
-            return redirect('/')
+        print [a, b, c, d]
+        session["number"] += 1
         return render_template("question.html", question = q, a = a,b=b,c=c,d=d)
-
-''' WE NEED TO MAKE A QUESTION ROUTE ONCE API STUFF IS UP AND RUNNING!!! '''
+    return redirect(url_for("root"))
 
 @app.route("/answered", methods=["GET","POST"])
 def answered():
-    #m = "Incorrect answer!"
-    #if request.form['answer'] == c_a:
-    #    m = "Correct answer!"              
-        
-    #flash(m)
-    return redirect(url_for("makegame"))
+    m = "Incorrect answer!"
+    print request.form['answer']
+    if request.form['answer'] == session["correct"]:
+        m = "Correct answer!"
+        if session["diff"] == "easy":
+            database.setScore(session["username"], database.getScore(session["username"])[0] + 1)
+        elif session["diff"] == "medium":
+            database.setScore(session["username"], database.getScore(session["username"])[0] + 3)
+        else:
+            database.setScore(session["username"], database.getScore(session["username"])[0] + 5)
+    flash(m)
+    return redirect(url_for("question"))
 
 @app.route("/leaderboard", methods=["GET", "POST"])
 def leaderboard():
