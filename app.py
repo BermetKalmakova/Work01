@@ -93,6 +93,7 @@ def getStringEnding(place):
 
 n=0
 c_a = ''
+diff = ''
 @app.route("/makegame", methods=["GET", "POST"])
 def makegame():
     n=0
