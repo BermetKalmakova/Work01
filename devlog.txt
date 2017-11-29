@@ -47,3 +47,6 @@ chenT & kalmakovaB -- 2017-11-28 15:01
    
 doktormanD -- 2017-11-28 19:58
    -implemented wikimediaAPI such that it retrieves a summary of the desired page, based on the correct answer
+   
+doktormanD -- 2017-11-28 21:04
+   -added code to strip html from generated extract in app.py
