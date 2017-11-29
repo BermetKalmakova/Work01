@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
   <head>
-  {% block title %}
-  {% endblock %}
-    <link rel="stylesheet" href="css/foundation.css">
+    {% block title %}
+    {% endblock %}
+    <link rel="stylesheet" href="http://stash.compjour.org/assets/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="add.css">
   </head>
   <body>
-  {% block body %}
-  {% endblock %}
-  	<script src="js/vendor/jquery.js"></script>
-  	<script src="js/foundation.js"></script>
-  	<script src="js/foundation.min.js"></script>
-  	<script src="js/vendor/what-input.js"></script>
-  	<script>$(document).foundation();</script>
+    <a class="button secondary" href="/">Home</a>
+    <a class="button secondary" href="/leaderboard">Leaderboard</a>
+    <a class="button secondary" href="/logout">Logout</a>
+    <a class="clear button primary" href="#">Welcome, {{name}}!</a>
+
+      
+    {% block body %}
+    {% endblock %}
+   
   </body>
 </html>

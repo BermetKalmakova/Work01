@@ -4,52 +4,58 @@
 <title>welcome!</title>
 {% endblock %}
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 7eb5c41857e8ccee7fb3b34a60feb71bb88ad429
 {% block body %}
 {% set messages = get_flashed_messages() %}
 {% for message in messages %}
 <center>
-	<h3>{{message}}</h3>
+  <div class="callout primary">
+    {{message}}
+  </div>
 </center>
 {% endfor %}
-<h3>Welcome {{name}}!</h3>
-<h3>You currently have {{score}} points and are in {{place}} place.</h3>
+<h5>You currently have {{score}} points and are in {{place}} place.</h5>
 <br><br>
-<form method="POST" action="/makegame">
-  Choose a category:<br>
-  	<select name="cat">
-      <option value="9" selected>General Knowledge</option>
-  	  <option value="10">Books</option>
-  	  <option value="11">Film</option>
-  	  <option value="12">Music</option>
-  	  <option value="13">Musicals and Theatres</option>
-  	  <option value="14">Television</option>
-  	  <option value="15">Video Games</option>
-  	  <option value="16">Board Games</option>
-  	  <option value="17">Science and Nature</option>
-  	  <option value="18">Computers</option>
-  	  <option value="19">Math</option>
-  	  <option value="20">Mythology</option>
-  	  <option value="21">Sports</option>
-  	  <option value="22">Geography</option>
-  	  <option value="23">History</option>
-  	  <option value="24">Politics</option>
-  	  <option value="25">Art</option>
-  	  <option value="26">Celebrities</option>
-  	  <option value="27">Animals</option>
-  	</select>
-  <br><br>
-  Choose a difficulty:<br>
-  <input type="radio" name="diff" value="easy" checked>Easy<br>
-  <input type="radio" name="diff" value="medium">Medium<br>
-  <input type="radio" name="diff" value="hard">Hard<br><br>
-  <input type="submit" value="Start" name="submit">
-</form>
-<br><br>
-<form method="POST" action="/leaderboard">
-	<input type="submit" value="Check the leaderboard!" name="submit">
-</form>
-<br><br>
-<form method="POST" action="/logout">
-	<input type="submit" value="Logout" name="submit">
-</form>
+<div class="grid-x grid-margin-x">
+  <div class="shrink cell">
+    <form method="POST" action="/makegame">
+      <label>Choose a category:
+	<select name="cat">
+	  <option value="9" selected>General Knowledge</option>
+	  <option value="10">Books</option>
+	  <option value="11">Film</option>
+	  <option value="12">Music</option>
+	  <option value="13">Musicals and Theatres</option>
+	  <option value="14">Television</option>
+	  <option value="15">Video Games</option>
+	  <option value="16">Board Games</option>
+	  <option value="17">Science and Nature</option>
+	  <option value="18">Computers</option>
+	  <option value="19">Math</option>
+	  <option value="20">Mythology</option>
+	  <option value="21">Sports</option>
+	  <option value="22">Geography</option>
+	  <option value="23">History</option>
+	  <option value="24">Politics</option>
+	  <option value="25">Art</option>
+	  <option value="26">Celebrities</option>
+	  <option value="27">Animals</option>
+	</select>
+      </label>
+      <br><br>
+      <legend>Choose a difficulty:</legend>
+      <input type="radio" name="diff" value="easy" checked>Easy<br>
+      <input type="radio" name="diff" value="medium">Medium<br>
+      <input type="radio" name="diff" value="hard">Hard<br><br>
+      <div class="input-group">
+	<input type="submit" class="button" value="Start" name="submit">
+      </div>
+    </form>
+  </div>
+</div>
+
+
 {% endblock %}

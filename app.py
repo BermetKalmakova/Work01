@@ -82,7 +82,6 @@ def welcome():
     return render_template("welcome.html", name=session["username"], score=database.getScore(session["username"])[0], place=getStringEnding(database.getPlacement(session["username"])))
 
 def getStringEnding(place):
-    # returns string representation of a ranking (e.g. 1st, 2nd)
 	place = place[0]
 	end = place % 10
 	if end == 1:
@@ -93,6 +92,7 @@ def getStringEnding(place):
 		return str(place) + "rd"
 	else:
 		return str(place) + "th"
+
 
 @app.route("/makegame", methods=["GET", "POST"])
 def makegame():
@@ -135,7 +135,7 @@ def question():
         c = h.unescape(i_a[2])
         d = h.unescape(i_a[3])
         session["number"] += 1
-        return render_template("question.html", question=q, a=a, b=b, c=c, d=d, e=i_a[0], f=i_a[1], g=i_a[2], h=i_a[3])
+        return render_template("question.html", question=q, a=a, b=b, c=c, d=d, e=i_a[0], f=i_a[1], g=i_a[2], h=i_a[3], name=session["username"])
     return redirect(url_for("root"))
 
 @app.route("/answered", methods=["GET","POST"])
@@ -181,7 +181,7 @@ def leaderboard():
 			boolean = False
 		booli = False
 		counter += 1
-	return render_template("leaderboard.html", listy=final)
+	return render_template("leaderboard.html", listy=final, name=session["username"])
 
 if __name__ == "__main__":
     app.debug = True

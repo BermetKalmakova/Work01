@@ -7,25 +7,33 @@
 {% block body %}
 {% set messages = get_flashed_messages() %}
 {% for message in messages %}
+
 <center>
-	<h3>{{message}}</h3>
+  <div class="callout primary">
+    {{message}}
+  </div>
+  
 </center>
 {% endfor %}
-<h3>More work needed</h3><br><br>
+<br><br>
 <form method="POST" action="/answered">
   <center>{{question}}</center>
   <input type="radio" name="answer" value="{{e}}">{{a}}<br>
   <input type="radio" name="answer" value="{{f}}">{{b}}<br>
   <input type="radio" name="answer" value="{{g}}">{{c}}<br>
   <input type="radio" name="answer" value="{{h}}">{{d}}<br>
+<<<<<<< HEAD
+  <div class="input-group">
+    <input type="submit" class = "button"  value="Submit" name="ans">
+  </div>
+=======
   <input type="submit" value="Submit" name="ans">
+>>>>>>> 7eb5c41857e8ccee7fb3b34a60feb71bb88ad429
 </form>
 
 
 <br>
-<form method="POST" action="/logout">
-  <input type="submit" value="Logout" name="submit">
-</form>
+
 
 
 {% endblock %}

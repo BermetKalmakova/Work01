@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block title %}
 <title>login</title>
@@ -7,6 +7,7 @@
 {% block body %}
 {% set messages = get_flashed_messages() %}
 {% for message in messages %}
+
 <center>
 	<h3>{{message}}</h3>
 </center>
@@ -20,12 +21,12 @@
   	<br>
   	<input type="password" name="password">
   	<br>
-  	<input type="submit" value="Login" name="submit">
+	<div class="input-group">
+  	  <input type="submit" class="button" value="Login" name="submit">
+	</div>
 </form>
+
 <br>
 <br>
-<br>
-<form method="POST" action="/register">
-	<input type="submit" value="Register here!">
-</form>
+
 {% endblock %}

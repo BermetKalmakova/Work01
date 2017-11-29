@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block title %}
 <title>register</title>
@@ -11,7 +11,7 @@
   <h3>{{message}}</h3>
 </center>
 {% endfor %}
-<h2>Register here!</h2>
+<h3>Register here!</h3>
 <form method="POST" action="/createAccount">
   Username:
   <br>
@@ -21,10 +21,10 @@
   <br>
   <input type="password" name="password">
   <br>
-  <input type="submit" value="Register" name="submit">
+  <div class="input-group">
+    <input type="submit" class="button" value="Register" name="submit">
+  </div>
 </form>
 <br>
-<form action="/">
-  <input type="submit" value="Login here" name="login">
-</form>
+
 {% endblock %}
