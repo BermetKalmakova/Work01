@@ -3,6 +3,7 @@ from flask import Flask, request, render_template, redirect, url_for, session, f
 from os import urandom
 from utils import database
 from random import shuffle
+from HTMLParser import HTMLParser
 import re
 
 app = Flask(__name__)
@@ -81,6 +82,7 @@ def welcome():
     return render_template("welcome.html", name=session["username"], score=database.getScore(session["username"])[0], place=getStringEnding(database.getPlacement(session["username"])))
 
 def getStringEnding(place):
+    # returns string representation of a ranking (e.g. 1st, 2nd)
 	place = place[0]
 	end = place % 10
 	if end == 1:
@@ -91,8 +93,6 @@ def getStringEnding(place):
 		return str(place) + "rd"
 	else:
 		return str(place) + "th"
-
-diff = ''
 
 @app.route("/makegame", methods=["GET", "POST"])
 def makegame():
@@ -114,6 +114,7 @@ def question():
     all_a = []
     n = session["number"]
     d = session["d"]
+    h = HTMLParser()
     #try:
     #    request.form['answer']
     #except:
@@ -123,24 +124,23 @@ def question():
     #if request.form['answer'] != c_a:
         #flash(wikimedia stuff)
     while (n < 10):
-        q = d[n]['question']
+        q = h.unescape(d[n]['question'])
         c_a = d[n]['correct_answer']
         session["correct"] = c_a
-        print c_a
         i_a = d[n]['incorrect_answers']
         i_a.append(c_a)
         shuffle(i_a)
-        a = i_a[0]
-        b = i_a[1]
-        c = i_a[2]
-        d = i_a[3]
-        print [a, b, c, d]
+        a = h.unescape(i_a[0])
+        b = h.unescape(i_a[1])
+        c = h.unescape(i_a[2])
+        d = h.unescape(i_a[3])
         session["number"] += 1
-        return render_template("question.html", question = q, a = a,b=b,c=c,d=d)
+        return render_template("question.html", question=q, a=a, b=b, c=c, d=d, e=i_a[0], f=i_a[1], g=i_a[2], h=i_a[3])
     return redirect(url_for("root"))
 
 @app.route("/answered", methods=["GET","POST"])
 def answered():
+    h = HTMLParser()
     wiki_search_url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=' + session["correct"].replace(' ', '%20')
     wiki_u = urllib2.urlopen(wiki_search_url)
     wiki_contents = wiki_u.read()
@@ -150,7 +150,7 @@ def answered():
     new_wiki_u = urllib2.urlopen(new_wiki_search_url)
     new_wiki_contents = new_wiki_u.read()
     extract = json.loads(new_wiki_contents)['query']['pages'][str(pageid)]['extract']
-    m = re.sub('<[^<]+?>', '', extract)
+    m = h.unescape(re.sub('<[^<]+?>', '', extract))
     print request.form['answer']
     if request.form['answer'] == session["correct"]:
         m = "Correct answer!"
@@ -160,6 +160,8 @@ def answered():
             database.setScore(session["username"], database.getScore(session["username"])[0] + 3)
         else:
             database.setScore(session["username"], database.getScore(session["username"])[0] + 5)
+    else:
+        flash("Incorrect answer!")
     flash(m)
     return redirect(url_for("question"))
 
