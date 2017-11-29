@@ -3,6 +3,7 @@ from flask import Flask, request, render_template, redirect, url_for, session, f
 from os import urandom
 from utils import database
 from random import shuffle
+import re
 
 app = Flask(__name__)
 app.secret_key = urandom(32)
@@ -149,7 +150,7 @@ def answered():
     new_wiki_u = urllib2.urlopen(new_wiki_search_url)
     new_wiki_contents = new_wiki_u.read()
     extract = json.loads(new_wiki_contents)['query']['pages'][str(pageid)]['extract']
-    m = extract
+    m = re.sub('<[^<]+?>', '', extract)
     print request.form['answer']
     if request.form['answer'] == session["correct"]:
         m = "Correct answer!"
