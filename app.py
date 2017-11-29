@@ -140,7 +140,16 @@ def question():
 
 @app.route("/answered", methods=["GET","POST"])
 def answered():
-    m = "Incorrect answer!"
+    wiki_search_url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=' + session["correct"].replace(' ', '%20')
+    wiki_u = urllib2.urlopen(wiki_search_url)
+    wiki_contents = wiki_u.read()
+    title = json.loads(wiki_contents)['query']['search'][0]['title'] #retrieves first title for use in next part
+    pageid = json.loads(wiki_contents)['query']['search'][0]['pageid'] #retrieves pageid for use in next part
+    new_wiki_search_url = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=' + title.replace(' ', '%20')
+    new_wiki_u = urllib2.urlopen(new_wiki_search_url)
+    new_wiki_contents = new_wiki_u.read()
+    extract = json.loads(new_wiki_contents)['query']['pages'][str(pageid)]['extract']
+    m = extract
     print request.form['answer']
     if request.form['answer'] == session["correct"]:
         m = "Correct answer!"
