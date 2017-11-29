@@ -3,7 +3,7 @@ Brief Overview:
 This is a trivia game where you choose a category and difficulty and answer questions. You have to make an account to play and you can see a leaderboard of high scores.
 
 Instructions:
-Run app.py
+Run app.py /n
 Create an account
 Login to the account
 Choose a category and difficulty
