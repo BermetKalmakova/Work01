@@ -12,4 +12,3 @@ No api keys necessary
 
 Disclaimer:
 	The information flashed when a question is wrong is not comletely related to the topic of the question. We found no definite way to verify that the information flashed was the information we needed.
-	Some category/difficulty choices produce an error with no pattern to which ones.
