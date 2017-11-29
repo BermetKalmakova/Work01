@@ -34,6 +34,9 @@ chenT -- 2017-11-27 14:01
 chenT -- 2017-11-27 19:25
    -Changed radio inputs to dropdown on welcome page
    
+doktormanD -- 2017-11-27 22:05
+   -implemented triviaAPI url accessing and question/answer retrieving/displaying
+   
 kalmakovaB -- 2017-11-28 2:34
    -Use api to display question and answers
    -Error when moving on to next question
@@ -41,3 +44,6 @@ kalmakovaB -- 2017-11-28 2:34
 chenT & kalmakovaB -- 2017-11-28 15:01
    -Fixed bugs in question route
    -Added point system
+   
+doktormanD -- 2017-11-28 19:58
+   -implemented wikimediaAPI such that it retrieves a summary of the desired page, based on the correct answer
